@@ -42,7 +42,7 @@ gulp.task 'do-test', <[ls]>, (next) ->
     # debug-brk: !production
     # r: 'test/setup.js'
     R: if CI => 'spec' else 'nyan'
-    istanbul: production
+    istanbul: x: 'lib/test*.js'
 
 gulp.task 'do-test-watch', <[ls-watch]>, -> gulp.watch <[lib/*.js]>, <[test]>
 
