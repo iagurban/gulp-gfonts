@@ -4,5 +4,7 @@ node_js:
   - "7"
   - "5"
 before_script:
-  - npm install -g gulp
-script: gulp test
+  - npm install -g gulp codecov
+script:
+  - gulp test
+  - codecov

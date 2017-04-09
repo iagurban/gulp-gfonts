@@ -1,25 +1,41 @@
-# gulp-gfonts
-> A gulp plugin for smart downloading fonts from Google Fonts© or other CDNs and generating CSS for them
+# gulp-gfonts [![Build Status](https://travis-ci.org/iagurban/gulp-gfonts.svg?branch=master)](https://travis-ci.org/iagurban/gulp-gfonts)
+> A gulp plugin for smart downloading fonts from Google Fonts© and generating CSS for/with them
 
 ## Usage
 
-Install `gulp-gfonts` as a development dependency:
+1. Install `gulp-gfonts` (as a development dependency in most cases):
 
 ```shell
 npm install --save-dev gulp-fonts
 ```
 
-Then in `gulpfile.js`:
+2. Create json-file with definitions for needed fonts:
+
+```json
+{ "Roboto": ["300", "300i", "500", "800"] }
+```
+
+or
+
+```json
+{ "Open Sans": "300,300i,500,500i,800,800i" }
+```
+
+or just copy url's query from Google Fonts constructor
+
+```json
+family=Roboto:500,100i|Open+Sans:100
+```
+
+3. Then in `gulpfile.js`:
 
 ### Use all avalilible formats
 ```javascript
 var gfonts = require('gulp-gfonts');
 
 gulp.task('fonts', function () {
-  gulp.src('')
-    .pipe(gfonts({
-      query: 'family=Roboto:100,400,900&subset=cyrillic'
-    }))
+  gulp.src('fonts.json')
+    .pipe(gfonts())
     .pipe(gulp.dest('./dist')); // => ./dist/fonts.css, ./dist/*.woff, ./dist/*.eot, etc.
 });
 ```
@@ -27,9 +43,8 @@ gulp.task('fonts', function () {
 ### Pack woff2 fonts to css-file
 ```javascript
 gulp.task('fonts', function () {
-  gulp.src('')
+  gulp.src('fonts.json')
     .pipe(gfonts({
-      query: 'family=Roboto:100,400,900&subset=cyrillic',
       embed: true,
       formats: ['woff2']
     }))
@@ -40,22 +55,24 @@ gulp.task('fonts', function () {
 ### Pack fonts to css-file, download eot for <ie9 separately, concat css
 ```javascript
 gulp.task('fonts', function () {
-  var fstream =
-    gulp.src('')
+  s =
+    gulp.src('fonts.json')
     .pipe(gfonts({
-      query: 'family=Roboto:100,400,900&subset=cyrillic',
-      fontsStream: function (s) {
-        return s.pipe(gulp.dest('./static/fonts')); // => ./static/fonts/*.eot
-      },
-      inCssBase: './fonts', // to be served like domain.com/fonts/blah.eot
+      inCssBase: './fonts', // to be served like domain.com/fonts/blahblah.eot
       embed: true
+    }))
+    .pipe(gulp-hydra({
+      css: (f) => /.*\.css$/.test(f.path),
+      fonts: (f) => !(/.*\.css$/.test(f.path))
     }));
-  // fstream contain only css file when fontsStream is present
 
-  var sstream = gulp.src('./app.styl').pipe(gulp-stylus());
+  s.fonts.pipe(gulp.dest('./static/fonts')); // => ./static/fonts/*.eot
 
-  merge2(fstream, sstream)
+  merge2(
+    gulp.src('./app.styl').pipe(gulp-stylus()),
+    s.css
+  )
   .pipe(gulp-concat('index.css'))
-  .pipe(gulp.dest('./static'))
+  .pipe(gulp.dest('./static')); // => ./static/index.css
 });
 ```
