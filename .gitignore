@@ -3,4 +3,3 @@ coverage
 *.sublime-workspace
 *.sublime-project
 .test
-lib
