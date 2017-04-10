@@ -61,7 +61,7 @@ gulp.task('fonts', function () {
       inCssBase: './fonts', // to be served like domain.com/fonts/blahblah.eot
       embed: true
     }))
-    .pipe(gulp-hydra({
+    .pipe(gulpHydra({
       css: (f) => /.*\.css$/.test(f.path),
       fonts: (f) => !(/.*\.css$/.test(f.path))
     }));
@@ -69,10 +69,10 @@ gulp.task('fonts', function () {
   s.fonts.pipe(gulp.dest('./static/fonts')); // => ./static/fonts/*.eot
 
   merge2(
-    gulp.src('./app.styl').pipe(gulp-stylus()),
+    gulp.src('./app.styl').pipe(gulpStylus()),
     s.css
   )
-  .pipe(gulp-concat('index.css'))
+  .pipe(gulpConcat('index.css'))
   .pipe(gulp.dest('./static')); // => ./static/index.css
 });
 ```
