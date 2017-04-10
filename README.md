@@ -1,4 +1,4 @@
-# gulp-gfonts [![Build Status](https://travis-ci.org/iagurban/gulp-gfonts.svg?branch=master)](https://travis-ci.org/iagurban/gulp-gfonts)
+# gulp-gfonts [![Build Status](https://travis-ci.org/iagurban/gulp-gfonts.svg?branch=master)](https://travis-ci.org/iagurban/gulp-gfonts) [![codecov](https://codecov.io/gh/iagurban/gulp-gfonts/branch/master/graph/badge.svg)](https://codecov.io/gh/iagurban/gulp-gfonts)
 > A gulp plugin for smart downloading fonts from Google Fonts© and generating CSS for/with them
 
 ## Usage
