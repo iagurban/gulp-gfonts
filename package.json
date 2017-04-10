@@ -1,7 +1,7 @@
 {
   "name": "gulp-gfonts",
-  "version": "0.0.1",
-  "description": "A gulp plugin for smart downloading fonts from Google Fonts© or other CDNs and generating CSS for them",
+  "version": "0.0.2",
+  "description": "A gulp plugin for smart downloading fonts from Google Fonts© and generating CSS for/with them",
   "main": "lib/index.js",
   "scripts": {
     "test": "gulp test"

@@ -2,3 +2,6 @@
 coverage
 *.sublime-project
 src
+lib/tests.js
+.travis.yml
+.gitignore
