@@ -4,9 +4,10 @@ node_js:
   - "7"
   - "5"
 before_script:
-  - npm install -g gulp
+  - npm install -g gulp codecov
 addons:
   code_climate:
     repo_token: 9df164f446cdbb9fc12eec44dce88e8a297d618bb969452aa2ddc08321fd824e
 script:
   - gulp test
+  - codecov
