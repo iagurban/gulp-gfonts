@@ -279,10 +279,10 @@ class Processor
             * &1.replace /\s/g, \+
             * switch
               | _.is-string &0 => &0
-              | _.is-array &0 => &0.join ','
+              | _.is-array &0 => &0.join ';'
               | _ => throw 'wrong font garnitures definition, can be string like "100,500i" or array of that items'
-          ].join ':'
-        .join '|'
+          ].join ':wght@'
+        .join '&family='
       "family=#{q}"
     catch e
       throw e if e.name != \SyntaxError
@@ -293,7 +293,7 @@ class Processor
       _.map @formats, ({ua}) ->
           (.bind null, ua) (ua, next) ->
             e, r, b <-! request do
-              url: "http://fonts.googleapis.com/css?#{query}"
+              url: "http://fonts.googleapis.com/css2?#{query}"
               headers: 'User-Agent': ua ? ''
             next e, b
       @options.limit-downloads
